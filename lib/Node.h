@@ -1,7 +1,7 @@
 #include <iostream> 
 #include <stdlib.h>
-#define MAX_X 50//edit these varables to change board size
-#define MAX_Y 50
+#define MAX_X 40//edit these varables to change board size
+#define MAX_Y 40
 class Node {
 	bool isAlive;
 	bool nextState;
