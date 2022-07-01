@@ -27,8 +27,30 @@ void Node::checkStatus(Node** nodeArray/*[x][y]*/, int x, int y){//checks the no
 	}
 	nextState=numNodes==3||(isAlive&&numNodes==2);//the rules for living
 }
-void Node::randomLive(){//makes the node randomly become alive or dead
-isAlive = std::rand()%RAND_MAX > RAND_MAX/1.7;
+void Node::randomLive(float density, Node** nodeArray/*[x][y]*/, int x, int y){//makes the node randomly become alive or dead
+	isAlive = std::rand()%RAND_MAX > RAND_MAX/density;
+	int numNodes=0;
+	if(isAlive){
+		for(int i=x-1;i<=x+1;i++){
+			if(i<0||i>=MAX_X){//if looking outside the board
+				continue;
+			}
+			for(int j=y-1;j<=y+1;j++){
+				if(j<0||j>=MAX_Y){//if looking outside the board
+					continue;
+				}
+				if(i==x&&j==y){//if checking self
+					continue;
+				}
+				if(nodeArray[i][j].returnAlive()){//if cell being checked is alive
+				numNodes+=1;
+				}
+			}	
+		}
+	}
+	if (numNodes>2){
+		isAlive=false;
+	}
 }
 void Node::setStatus(bool newStatus){//manually sets the status of the node
 	isAlive = newStatus;

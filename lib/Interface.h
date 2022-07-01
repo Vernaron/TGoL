@@ -1,6 +1,7 @@
 #include "Node.h"
 #include <string>
 #include <iostream>
+#include <windows.h>
 void Board();//the main function for the entire program
 void startRandom(Node** nodeArray);//starts all the cells either randomly alive or dead
 void deleteBoard(Node** nodeArray);//clears the array when the simulation is finished
