@@ -1,6 +1,6 @@
 #include "Interface.h"
 std::string printEdge(int size, char character);
-void Board(){
+void board(){
 	Node** newArray =  new Node*[MAX_X];//initialize new 2d array
 	for(int i=0;i<MAX_X;i++){
 		newArray[i]= new Node[MAX_Y];
@@ -24,17 +24,16 @@ void Board(){
 		lastPrint2=lastPrint;
 		lastPrint=printedArray;//keeps track of what the last board looked like
 		count=updateBoard(newArray, printedArray);//keeps track of total cells on the board
-		Sleep(16);
 	} while (count>0&&lastPrint!=printedArray&&numLoop>0);//terminate if nothing on the board or board didnt change between cycles
 	deleteBoard(newArray);
 	char continueLife;
 	std::cout<<"Simulation Completed, start another simulation? (y/n)"<<std::endl;
 	std::cin>>continueLife;
 	if(continueLife=='y'||continueLife=='Y'){
-	Board(); 
+	board(); 
 	}
 }
-void deleteBoard(Node** nodeArray){//function to delete the 2d array
+void deleteboard(Node** nodeArray){//function to delete the 2d array
 	for (int i=0;i<MAX_X;i++){
 		delete nodeArray[i];
 	}
@@ -70,7 +69,7 @@ void startRandom(Node** nodeArray){
 }
 void printBoard(Node** nodeArray, std::string& printedArray){
 	printedArray="";
-	for(int i=0;i<MAX_X;i++){
+	for(int i=0;i<MAX_X;i++){ 
 		if(i==0){//border
 			printedArray+=printEdge(MAX_X*2+2, '-')+"\n";
 		}
@@ -89,8 +88,8 @@ void printBoard(Node** nodeArray, std::string& printedArray){
 			printedArray+=printEdge(MAX_X*2+2, '-');
 		}
 	}
-	system("CLS");
-	std::cout<<printedArray<<std::endl;
+	std::cout<<"\033[2J\033[1;1H "<<printedArray<<std::flush;
+	Sleep(16);
 }
 int updateBoard(Node** nodeArray, std::string& printedArray){
 	int count=0;
