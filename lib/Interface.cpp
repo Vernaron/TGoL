@@ -1,4 +1,5 @@
 #include "Interface.h"
+void wait(double waitTime);
 std::string printEdge(int size, char character);
 void board(){
 	Node** newArray =  new Node*[MAX_X];//initialize new 2d array
@@ -33,7 +34,7 @@ void board(){
 	board(); 
 	}
 }
-void deleteboard(Node** nodeArray){//function to delete the 2d array
+void deleteBoard(Node** nodeArray){//function to delete the 2d array
 	for (int i=0;i<MAX_X;i++){
 		delete nodeArray[i];
 	}
@@ -59,6 +60,7 @@ void startRandom(Node** nodeArray){
 		break; 
 	default:
 	std::cout<<"Invalid Character"<<std::endl;
+	std::cin.ignore();
 	goto densityGet;
 	}
 	for(int i=0;i<MAX_X;i++){
@@ -88,8 +90,8 @@ void printBoard(Node** nodeArray, std::string& printedArray){
 			printedArray+=printEdge(MAX_X*2+2, '-');
 		}
 	}
-	std::cout<<"\033[2J\033[1;1H "<<printedArray<<std::flush;
-	Sleep(16);
+	std::cout<<"\033[2J\033[1;1H "<<printedArray;
+	wait(0.03);
 }
 int updateBoard(Node** nodeArray, std::string& printedArray){
 	int count=0;
@@ -114,4 +116,14 @@ std::string printEdge(int size, char character){//returns a string of characters
 	}
 	border+="";
 	return border;
+}
+void wait(double waitTime){
+	std::chrono::time_point<std::chrono::system_clock> startFrame, endFrame;
+	startFrame = std::chrono::system_clock::now();
+	endFrame = std::chrono::system_clock::now();
+	std::chrono::duration<double> deltaT = endFrame - startFrame;
+	while(deltaT.count()<waitTime){
+		endFrame = std::chrono::system_clock::now();
+		deltaT = endFrame - startFrame;
+	}
 }

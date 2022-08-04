@@ -1,7 +1,7 @@
-#include "interface.h"
+#include "Interface.h"
 #include "time.h"
 int main(){
 	srand(time(NULL));
-	Board();
+	board();
 	return 0;
 }
